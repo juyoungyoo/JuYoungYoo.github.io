@@ -1,0 +1,122 @@
+---
+layout: post
+title:  "spring redis session 활용하기"
+date:   2018-12-20 08:43:59
+author: chloe
+categories: Spring
+tags:
+- Spring
+- Redis
+cover:  "/assets/instacode.png"
+---
+
+
+회사에서 Redis을 사용하여 api서버와 client서버의 세션을 관리하고 있다.
+그래서 이번 포스팅은 `spring redis session 설정 방법과 사용법`에서 포스팅하려한다.
+
+
+## Redis란?
+- NoSQL계열의 메모리 기반 DB
+- sesion 정보처리에 적합하다.
+
+### 연동방법 2가지
+1. spring redis 연동
+2. tomcat redis 연동
+
+### redis serer 설치 방법 (linux 기준)
+
+```
+$ wget http://download.redis.io/redis-stable.tar.gz
+$ tar xvzf redis-stable.tar.gz
+$ cd redis-stable
+$ make
+```
+!참고 : make를 통한 컴파일 끝날 시 make test 명령어를 통해 컴파일이 잘되었는지 확인 가능하다
+1. redis 설치
+```
+$ sudo make install
+```
+2. 실행방법
+```
+$ redis-server
+```
+3. redis 잘 작동하는지 확인 (cli이용, new cmd)
+```
+$ redis-cli
+redis 127.0.0.1:6379> ping  // 서버 잘 작동시 pong response옴
+or
+// tool에서 확인 https://redisdesktop.com
+```
+4. 데이터 set,get 해보기
+```
+redis 127.0.0.1:6379> set mykey somevalue // OK
+redis 127.0.0.1:6379> get mykey           // somevalue
+```
+
+##### 백그라운드 서비스로 실행하는 방법
+```
+$ redis-server --service-install
+$ redis-server --service-start    // 종료방법 : --service-stop
+```
+
+##### redis server 설정 변경 방법
+- vi /etc/redis/redis.conf 설정 변경
+  1. 접근 ip주소 변경 : bind 127.0.0.1
+  2. port 설정 : port 6379
+  3. password 설정 : requirepass 1111
+설정 변경 후 적용하기 위해 redis 재시작 <br/>( service redis-server restart)
+
+____
+
+## Spring redis 설정
+dependency
+```
+<dependency>
+    <groupId>org.springframework.session</groupId>
+    <artifactId>spring-session-data-redis</artifactId>
+    <version>1.3.1.RELEASE</version>
+    <type>pom</type>
+</dependency>
+<dependency>
+    <groupId>biz.paluch.redis</groupId>
+    <artifactId>lettuce</artifactId>
+    <version>3.5.0.Final</version>
+</dependency>
+```
+redis-context.xml
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+    <context:annotation-config />
+    <bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration"/>
+    <bean class="org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory"
+    p:host-name=“host" p:port="6379" p:database="0" p:password=“비밀번호"/>
+</beans>
+```
+web.xml
+```
+<context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/spring/appServlet/redis-context.xml</param-value>
+</context-param>
+<listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+</listener>
+<filter>
+    <filter-name>springSessionRepositoryFilter</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+</filter>
+<filter-mapping>
+    <filter-name>springSessionRepositoryFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+</filter-mapping>
+```
+
+### 사용방법
+springSessionRepositoryFilter를 통해 redis session이 교체됨으로 기존사용방법 그대로 사용하면된다.
+- session.setAttribute("key", object);

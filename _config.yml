@@ -10,7 +10,7 @@ exclude:
   - "/vendor/"
 
 # Site settings
-title: JY develop blog
+title: 기술 블로그
 subtitle: "developer blog"
 email: juy5790a@outlook.com
 name: juyoung yoo
