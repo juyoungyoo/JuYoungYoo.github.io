@@ -1,19 +1,19 @@
 ---
-title: " Spring, RestAPI 구현(CRUD) / RESTAPI 설계 방법과 주의해야할 점"
+title: " Spring, RestAPI 구현(CRUD)"
+subtitle : RestAPI 구현 및 설계 방법과 주의해야할 점
 layout: post
-date: '2018-12-11 05:43:00'
-author: chloe
-categories: Spring
-tags: Spring
-cover: "/assets/instacode.png"
+#date: '2018-12-11 05:43:00'
+#author: chloe
+categories: devlog
+tags: spring
+comments: true
+# cover: "/assets/instacode.png"
 ---
-
 ## Spring + RestAPI 구현(CRUD) 그리고 RESTAPI 설계 방법과 주의해야할 점 RestTemplate에 대해서
 
 ### 참고 소스
 - [rest api server단 예제][git server example download]
 - [rest api client단 예제][git client example download]
-
 
 
 ## RestAPi란?

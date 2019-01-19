@@ -1,17 +1,24 @@
 ---
-layout: page
+layout: about
 title: About
-permalink: /about/
+menu: false
+order: 10
 ---
 
-<img src="{{ site.baseurl }}/assets/profile-placeholder.gif" title="Profile Picture" class="profile">
+## 소개
 
-Centrarium is a custom theme for Jekyll, made by [Ben Centra][bencentra] for his own blog. He'd be humbled if you liked it enough to use it as well! Installation and configuration instructions can be found in the [GitHub repository](https://github.com/bencentra/centrarium).
+<!-- 소개 -->
 
-This page is a good place to write about yourself, your project, your product, or whatever it is your site is for. You can replace the image above, or you can get rid of it entirely. 
+## 이력
 
-You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/). And you can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
+<!-- - 위즈돔에서 Spring기반의 굿모닝미리(경기도 좌석예약버스)앱 개발 -->
 
-[centrarium]: https://github.com/bencentra/centrarium
-[bencentra]: http://bencentra.com
-[jekyll]: https://github.com/jekyll/jekyll
+<!-- - 위즈돔에서 React로 SK/Kakao 통근 버스 예약 앱 개발 -->
+
+<!-- ## 사이드프로젝트 -->
+
+<!-- - [react-redux-material-meteor](https://github.com/isme2n/react-redux-material-meteor) - 보일러 플레이트 -->
+
+## 하고싶은 말
+
+<!-- 다양한 사이드 프로젝트 제안, 친구 제안, 번개 제안 등등 해주시면 좋아합니다. -->

@@ -1,13 +1,12 @@
 ---
 title: " RestTemplate 사용방법 "
+subtitle : REST API 설계시 많이 사용하는 RestTemplate 정의, 사용방법
 layout: post
-date: '2018-12-11 06:43:00'
-author: chloe
-categories: Spring
-tags:
-- Spring
-- RestTemplate
-cover: "/assets/instacode.png"
+#date: '2018-12-11 06:43:00'
+#author: chloe
+categories: devlog
+tags: spring
+#cover: "/assets/instacode.png"
 ---
 
 ## RestTemplate란?
@@ -35,7 +34,7 @@ cover: "/assets/instacode.png"
  compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.4'
  compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.7.4'
  {% endhighlight %}
- 
+
 {% highlight java %}
  {% raw %}    
  @Bean
@@ -44,7 +43,7 @@ cover: "/assets/instacode.png"
  }
  {% endraw %}
  {% endhighlight %}
- 
+
  {% highlight java %}
  HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
 factory.setReadTimeout(5000); // 읽기시간초과, ms
@@ -56,6 +55,6 @@ HttpClient httpClient = HttpClientBuilder.create()
 factory.setHttpClient(httpClient); // 동기실행에 사용될 HttpClient 세팅
 RestTemplate restTemplate = new RestTemplate(factory);
  {% endhighlight %}
- 
- 
+
+
   <img src="{{ site.baseurl }}/assets/images/resttemplate/2_method.jpg" title="주 메소드">
